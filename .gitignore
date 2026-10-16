@@ -1,0 +1,36 @@
+# secrets and actual container state
+.env
+**/.env
+!**/.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+credentials*.json
+*credential-backup*
+*n8n_data*
+*.sqlite
+*.sqlite3
+*.db
+
+# noise and platform files
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+node_modules/
+*.log
+*.bak
+*.tmp
+*.swp
+.idea/
+.vscode/
+
+# archives/VM disks: do not commit virtual machines to the portfolio
+*.vdi
+*.vmdk
+*.vhd
+*.ova
+*.ovf
+*.vbox
+*.iso

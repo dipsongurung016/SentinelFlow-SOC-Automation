@@ -1,0 +1,60 @@
+{
+  "name": "SOC Automation - Error Handler",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a203fb8e-254f-4459-9f3b-d6227d5a0b07",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://example.invalid/REPLACE_WITH_YOUR_SLACK_WEBHOOK_URL",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "text",
+              "value": "={{ \"SOC WORKFLOW ERROR\\nWorkflow: \" + ($json.workflow?.name || \"Unknown\") + \"\\nFailed Node: \" + ($json.execution?.lastNodeExecuted || \"Unknown\") + \"\\nError: \" + ($json.execution?.error?.message || $json.trigger?.error?.message || \"Check n8n logs\") + \"\\nExecution: \" + ($json.execution?.url || \"Unavailable\") }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "fd4be33a-60a1-4604-9168-7410744d849b",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "tags": []
+}

@@ -1,0 +1,8 @@
+search index=endpoint host="target-PC" EventCode=4625 "soc_test" earliest=-60m latest=now
+| rex field=_raw "Source Network Address:\s*(?<src_ip>\d{1,3}(?:\.\d{1,3}){3})"
+| where src_ip="192.168.10.250"
+| bin _time span=15m
+| stats count AS failed_attempts by _time host src_ip
+| where _time >= now()-2700 AND _time+900 <= now()-60
+| where failed_attempts >= 2
+| sort -_time
